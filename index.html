@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@200&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0f62ced13f.js" crossorigin="anonymous"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <link rel="canonical" href="https://valleyreorderlist.net/weather"> 
+    <link rel="stylesheet" href="weatherSecond.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <nav>
+        <div class="navLeft">
+            <div>
+             <span class="navHeadLink">Local Weather <i class="fa-solid fa-cloud h1 hide"></i> <i class="fa-solid fa-cloud-sun-rain h2 hide"></i><i class="fa-solid fa-sun h3 hide"></i> <i class="fa-solid fa-cloud-sun h4 hide"></i></span>
+            </div>
+        </div>
+
+        <div class="navRight">
+            <div class="searchBar">
+                <div class="search">
+                    <input type="text" id="search" placeholder="Search City">
+                </div>
+                <div class="magnifyGlass">
+                  <i class="fa-solid fa-magnifying-glass fa-2x searchBtn" id="searchBtn"></i>
+                </div>
+            </div>
+
+            <div>
+                <a href="https://github.com/kelso540/weather-app" class="navLink"><i class="fa-brands fa-github fa-xl"></i></a>        
+            </div>
+            <div class="timeText">
+                <strong id="time">Sat Jun 27 2022</strong>
+            </div>
+        </div>
+        <div class="threeLinesDropDown">
+            <i class="fa-solid fa-bars fa-3x threeLines" id="threeLines"></i>
+        </div>
+
+    </nav>
+
+    <div class="dropDiv" id="dropDiv">
+        <div class="timeText2">
+            <strong id="time2">Sat Jun 27 2022</strong>
+        </div>
+        <div class="menuLinks">
+            <div>
+                <a href="https://github.com/kelso540/weather-app" class="navLinkB"><i class="fa-brands fa-github fa-2x"></i></a>        
+            </div>
+        </div>
+    </div>
+
+        <div class="startContainer">
+            <div class="startPagePicDiv">
+                <div class="startPicA">
+                    <i class="fa-solid fa-cloud fa-4x h1"></i> <i class="fa-solid fa-cloud-sun-rain fa-4x h2"></i> <i class="fa-solid fa-sun fa-4x h3"></i> <i class="fa-solid fa-cloud-sun fa-4x h4"></i>
+                </div>
+                <div class="startPicB">
+                    <i class="fa-solid fa-umbrella fa-4x h5"></i> <i class="fa-solid fa-temperature-high fa-4x h6"></i> <i class="fa-solid fa-bolt fa-4x h7"></i> <i class="fa-regular fa-snowflake fa-4x h8"></i>
+                </div>
+            </div>
+            <div class="startPicAB">
+                <div class="startPicA">
+                    <i class="fa-solid fa-cloud fa-2x h1"></i> <i class="fa-solid fa-cloud-sun-rain fa-2x h2"></i> <i class="fa-solid fa-sun fa-2x h3"></i> <i class="fa-solid fa-cloud-sun fa-2x h4"></i>
+                </div>
+                <div class="startPicB">
+                    <i class="fa-solid fa-umbrella fa-2x h5"></i> <i class="fa-solid fa-temperature-high fa-2x h6"></i> <i class="fa-solid fa-bolt fa-2x h7"></i> <i class="fa-regular fa-snowflake fa-2x h8"></i>
+                </div>            </div>
+            <div class="startHead">
+                <strong>Local Weather</strong>
+            </div>
+            <div class="startDesc">
+                <strong>Weather for the day, week and hour provided by OpenWeatherMap!</strong>
+            </div>
+            <div class="startDesc">
+                <strong>Get your weather now!</strong>
+                <strong class="startScreenSmallText">Search a city above</strong>
+            </div>
+        </div>
+
+    <div class="container">
+
+        <div class="cityState">
+            <div class="city">
+                <strong id="city">Hartford</strong><span>, </span>
+            </div>
+            <div class="state">
+                <strong id="state">Connecticut</strong>
+            </div>
+        </div>
+
+        <div class="loading">
+            <strong><i class="fa-solid fa-spinner fa-spin-pulse fa-spin-reverse"></i></strong>
+        </div>
+
+        <div class="infoDiv">
+            <div class="radar">
+                <div class="todayHead">
+                    <strong>Todays Weather</strong>
+                </div>
+            </div>
+            <div class="tempIconMain">
+                <div class="icon">
+                    <div class="degrees">
+                        <strong><span id="temp">68</span>&#xb0</strong>
+                    </div>
+                    <div class="iconPicture">
+                        <strong><img class="mainIconPic" src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather"></strong>
+                    </div>
+                </div>
+                <div class="main">
+                    <strong id="main">Cloudy</strong>
+                </div>
+                <div class="mid">
+                    <div class="rain-wind">
+                        <strong><i class="fa-solid fa-cloud-rain" style="color:rgb(82, 82, 82)"></i> Rain <span id="midTemp">40</span>%</strong>
+                    </div>
+                    <div class="rain-wind RA1">
+                        <i class="fa-solid fa-slash"></i>
+                    </div>
+                    <div class="rain-wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed">9</span> MPH</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="timeSun">
+                <div class="sunrise">
+                    <i class="fa-solid fa-sun sunUp"></i> 
+                    <br>
+                    <strong id="sunrise">6:00</strong> 
+                    <strong class="sunText">Sunrise</strong>
+                </div>
+                <div class="sunMnt">
+                    <div class="halfHide">
+                        <div class="meter">
+                            <div class="line">
+                                <i class="fa-solid fa-sun fa-2x"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sunset">
+                    <i class="fa-solid fa-moon sunDown"></i>
+                    <br> 
+                    <strong id="sunset">8:00</strong> 
+                    <strong class="sunText">Sunset</strong>
+                </div>
+            </div>
+
+            <div class="uV">
+                <strong id="uIndex"><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> Index: <span id="uV">9</span></strong>
+            </div>
+            <div class="infoDivB">
+                <div class="feelsLikeWind">
+                    <div class="high desc">
+                        <strong>Day <span id="highTemp">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                    </div>
+                    <div class="feelsLike desc">
+                        <strong><i class="fa-solid fa-temperature-three-quarters"></i> Feels like: <span id="feelsLike">68</span>&#xb0</strong>
+                    </div>
+                    <div class="windSpeed desc">
+                        <strong><i class="fa-solid fa-wind"></i> Gust <span id="windGust">20</span> MPH</strong>
+                    </div>
+                </div>
+                <div class="humDewDesc">
+                    <div class="low desc">
+                        <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> Night <span id="lowTemp">61</span>&#xb0</strong>
+                    </div>
+                    <div class="humidity desc">
+                        <strong><i class="fa-solid fa-droplet"></i> Humidity: <span id="humidity">50</span>%</strong>
+                    </div>
+                    <div class="dewPoint desc">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0 Dew Point: <span id="dewPoint">68</span>&#xb0</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="description">
+                <strong id="description">partly cloudy</strong>
+            </div>
+        </div>
+
+        <div class="dayDiv">
+
+                <div class="radar2">
+                    <strong>Daily Forecast</strong>
+                </div>
+
+            <div class="dayHolder">
+
+                <div class="arrowA">
+                    <i class="fa-solid fa-angle-left fa-4x"></i>
+                </div>
+
+                <div>
+
+                <div class="infoInfo1">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed1">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity1">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint1">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek1">Mon</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp1">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon1" src="http://openweathermap.org/img/wn/10d@4x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay1">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay1">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent1">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1">
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV1">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp1">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp1">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+            
+            
+            <div class="infoInfo2">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed2">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity2">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint2">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek2">Tues</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp2">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon2" src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay2">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay2">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent2">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1">
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV2">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp2">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp2">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+            
+            
+            <div class="infoInfo3">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed3">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity3">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint3">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek3">Wed</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp3">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon3" src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay3">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay3">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent3">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1">
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV3">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp3">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp3">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+            
+            
+            <div class="infoInfo4">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed4">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity4">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint4">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek4">Thurs</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp4">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon4" src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay4">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay4">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent4">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1"> 
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV4">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp4">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp4">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+            
+            
+            <div class="infoInfo5">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed5">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity5">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint5">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek5">Fri</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp5">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon5" src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay5">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay5">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent5">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1">
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV5">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp5">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp5">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+            
+            
+            <div class="infoInfo6">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed6">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity6">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint6">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek6">Sat</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp6">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon6" src="http://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay6">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay6">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent6">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1"> 
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV6">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp6">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp6">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+            
+            <div class="infoInfo7">
+
+                <div class="align">
+                    <div class="rain-wind1">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="windSpeed7">9</span> MPH</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humidity7">50</span>%</strong>
+                    </div>
+                    <div class="smInfo">
+                        <strong><i class="fa-solid fa-droplet"></i>&#xb0  <span id="dewPoint7">68</span></strong>
+                    </div>
+                </div>
+                <div class="dayOne day">
+                    <div class="dayHold1">
+                        <div class="dayOfWeek">
+                            <strong id="dayOfWeek7">Sun</strong>
+                        </div>
+                    </div>
+                    <div class="temp">
+                        <strong><span id="temp7">68</span>&#xb0</strong>
+                    </div>
+                    <div>
+                        <img id="icon7" src="https://openweathermap.org/img/wn/10d@2x.png" alt="Weather">
+                    </div>
+                    <div class="dayDes">
+                        <strong id="descriptionDay7">partly cloudy</strong>
+                    </div>
+                    <div class="dayText">
+                        <strong id="textDay7">partly cloudy</strong>
+                    </div>
+                    <div class="rainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="rainPercent7">20</span>%</strong>
+                    </div>
+                </div>
+                <div class="align1">
+                    <div class="uV1">
+                        <strong><i class="fa-regular fa-u"></i><i class="fa-regular fa-v"></i> <span id="uV7">9</span></strong>
+                    </div>
+                <div class="smInfo">
+                    <strong><span id="highTemp7">82</span>&#xb0</strong> <i class="fa-solid fa-person-digging" style="color:rgb(161, 96, 5)"></i>
+                </div>
+                <div class="smInfo">
+                    <strong><i class="fa-solid fa-bed" style="color:rgb(68, 7, 129)"></i> <span id="lowTemp7">61</span>&#xb0</strong>                
+                </div>
+            </div>
+
+            </div>
+
+            </div>
+            
+                <div class="arrowB">
+                    <i class="fa-solid fa-angle-right fa-4x"></i>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hourDiv">
+
+            <div class="radar3">
+                <div class="todayHead">
+                    <strong>Hourly Forecast</strong>
+                </div>
+            </div>
+
+            <div class="hourHoursDiv">
+
+                <div class="hour1 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime1">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp1">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon1" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent1">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid1">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind1">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour2 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime2">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp2">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon2" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent2">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid2">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind2">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour3 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime3">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp3">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon3" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent3">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid3">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind3">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour4 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime4">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp4">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon4" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent4">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid4">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind4">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour5 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime5">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp5">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon5" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent5">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid5">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind5">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour6 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime6">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp6">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon6" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent6">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid6">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind6">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour7 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime7">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp7">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon7" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent7">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid7">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind7">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour8 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime8">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp8">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon8" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent8">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid8">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind8">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour9 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime9">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp9">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon9" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent9">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid9">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind9">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+
+
+                <div class="hour10 hour">
+                    <div class="hourTime">
+                        <strong id="hourTime10">9:00 AM</strong>
+                    </div>
+                    <div class="hourTemp">
+                        <strong><span id="hourTemp10">68</span>&#xb0</strong>
+                    </div>
+                    <div class="hourIcon">
+                        <img id="hourIcon10" src="http://openweathermap.org/img/wn/10d.png" alt="Weather">
+                    </div>
+                    <div class="hourRainPercent">
+                        <strong><i class="fa-solid fa-cloud-showers-heavy"></i> <span id="hourRainPercent10">20</span>%</strong>
+                    </div>
+                    <div class="humid">
+                        <strong><i class="fa-solid fa-droplet"></i> <span id="humid10">60</span>%</strong>
+                    </div>
+                    <div class="wind">
+                        <strong><i class="fa-solid fa-wind"></i> <span id="wind10">20</span> <span class="smMPH">MPH</span></strong>
+                    </div>
+                </div>
+    
+        </div>
+
+    </div>
+
+    <div class="frame">
+        <iframe class="iFrame" src="https://radar.weather.gov/region/conus/standard" title="Iframe Weather Map"></iframe>
+    </div>
+
+    
+    </div> 
+    
+    
+
+    <script src="weatherSecond.js"></script>
+</body>
+</html>
