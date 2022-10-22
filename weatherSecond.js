@@ -481,18 +481,18 @@ let primary = {
             let cut = times[i].timeList[4].toString().split(":");
             let amPM = "AM";
             let zero = "0";  
-            if (cut[0] <= 12){ 
-            amPM = "AM";
-            if(cut[0] <= 0){
-                cut[0] = 12; 
+            if (cut[0] < 12){ 
+              amPM = "AM";
             }
-            }
-            if (cut[0] >= 13){
+            if (cut[0] >= 12){
             amPM = "PM";
             cut[0] -= 12;
             if(cut[0] < 10){
                 cut[0] = zero + cut[0];
             }
+            }
+            if(cut[0] <= 0){
+              cut[0] = 12; 
             }
             let newTime = cut[0] + ":" + cut[1] + " " + amPM; 
             cast.newTimes.push(newTime); 
@@ -726,21 +726,21 @@ let primary = {
         console.log("success");
         setTimeout(functions.getSunDegrees, 500);
     }, 
-    getSunDegrees: function () {
-      const current = new Date(); 
-      const up = new Time(cast.sunrise);
-      const dwn = new Time(cast.sunset); 
-      const one = up.timeList[4].toString().split(":");
-      const two = dwn.timeList[4].toString().split(":");
-      const cur = current.toString().split(" "); 
-      const now = cur[4].toString().split(":"); 
-      const diff = Number(two[0]) - Number(one[0]);
-      const hr = Math.floor(170 / diff);   
-      const upDif = Number(now[0]) - Number(one[0]); 
-      const multi = Math.floor(hr * upDif); 
+    getSunDegrees: function () { //170 is difference between visible degrees 45 and 215 on meter.
+      const current = new Date(); //Fri Oct 21 2022 11:24:13 GMT-0400 (Eastern Daylight Time)
+      const up = new Time(cast.sunrise); //6:00
+      const dwn = new Time(cast.sunset); //20:00
+      const one = up.timeList[4].toString().split(":"); //[6, 00]
+      const two = dwn.timeList[4].toString().split(":"); //[20, 00]
+      const cur = current.toString().split(" "); //[Fri, Oct, 21, 2022, 11:24:13 GMT-0400 (Eastern Daylight Time)]
+      const now = cur[4].toString().split(":"); //[11, 24, 13]
+      const diff = Number(two[0]) - Number(one[0]); //20 - 6 = 14, hrs between sunrise and sunset.
+      const hr = Math.floor(170 / diff); //12, 170/14 to get even segments between visible degrees.   
+      const upDif = Number(now[0]) - Number(one[0]); //11 - 6 = 5, hrs between sunrise and current time.
+      const multi = Math.floor(hr * upDif); //60, time converted to degrees. 
       primary.timeInDegrees = multi + 45;
       if(primary.timeInDegrees >= 215){
-        primary.timeInDegrees = 215;    
+        primary.timeInDegrees = 225;    
       }
       functions.getInput(); 
     },
