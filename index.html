@@ -11,33 +11,49 @@
     <meta name="viewport" content="width=device-width">
     <link rel="canonical" href="https://valleyreorderlist.net/weather"> 
     <link rel="stylesheet" href="weatherSecond.css">
-    <title>Document</title>
+    <title>Local Weather</title>
 </head>
 <body>
 
     <nav>
         <div class="navLeft">
             <div>
-             <span class="navHeadLink">Local Weather <i class="fa-solid fa-cloud h1 hide"></i> <i class="fa-solid fa-cloud-sun-rain h2 hide"></i><i class="fa-solid fa-sun h3 hide"></i> <i class="fa-solid fa-cloud-sun h4 hide"></i></span>
+             <a href="index.html" class="navHeadLink"><span class="navHeadLink">Local Weather <i class="fa-solid fa-cloud h1 hide"></i> <i class="fa-solid fa-cloud-sun-rain h2 hide"></i><i class="fa-solid fa-sun h3 hide"></i> <i class="fa-solid fa-cloud-sun h4 hide"></i></span></a>
             </div>
         </div>
 
         <div class="navRight">
             <div class="searchBar">
                 <div class="search">
-                    <input type="text" id="search" placeholder="Search City">
+                    <input type="text" id="search" placeholder="Search Zip Code">
                 </div>
                 <div class="magnifyGlass">
                   <i class="fa-solid fa-magnifying-glass fa-2x searchBtn" id="searchBtn"></i>
                 </div>
             </div>
 
+            <div class="searchBarCity">
+                <div class="searchCity">
+                    <input type="text" id="searchCity" placeholder="Search City / Town">
+                </div>
+                <div class="magnifyGlass">
+                  <i class="fa-solid fa-magnifying-glass fa-2x searchBtnCity" id="searchBtnCity"></i>
+                </div>
+            </div>
+
+            <div class="changeSearchDiv">
+                <a class="changeSearch" onclick="changeToCity()">Search by City Name</a> 
+                <a class="changeSearchZip" onclick="changeToZip()">Search by Zip Code</a>        
+            </div>       
+
             <div>
                 <a href="https://github.com/kelso540/weather-app" class="navLink"><i class="fa-brands fa-github fa-xl"></i></a>        
             </div>
+
             <div class="timeText">
                 <strong id="time">Sat Jun 27 2022</strong>
             </div>
+
         </div>
         <div class="threeLinesDropDown">
             <i class="fa-solid fa-bars fa-3x threeLines" id="threeLines"></i>
@@ -49,6 +65,13 @@
         <div class="timeText2">
             <strong id="time2">Sat Jun 27 2022</strong>
         </div>
+        <div class="timeText2">
+            <a href="index.html" class="homeLink">Home Page</a>
+        </div> 
+        <div>
+            <a class="changeSearchMobile" onclick="changeToCityMobile()">Search by City Name</a> 
+            <a class="changeSearchZipMobile" onclick="changeToZipMobile()">Search by Zip Code</a>         
+        </div> 
         <div class="menuLinks">
             <div>
                 <a href="https://github.com/kelso540/weather-app" class="navLinkB"><i class="fa-brands fa-github fa-2x"></i></a>        
@@ -76,11 +99,13 @@
                 <strong>Local Weather</strong>
             </div>
             <div class="startDesc">
-                <strong>Weather for the day, week and hour provided by OpenWeatherMap!</strong>
+                <strong>Weather for the day, week and hour</strong>
+                <br>
+                <strong>provided by <a href="https://openweathermap.org/" class="openWeatherLink">OpenWeatherMap!</a></strong>
             </div>
             <div class="startDesc">
                 <strong>Get your weather now!</strong>
-                <strong class="startScreenSmallText">Search a city above</strong>
+                <strong class="startScreenSmallText">Search a city or town above</strong>
             </div>
         </div>
 
@@ -797,6 +822,16 @@
 
     
     </div> 
+
+    <div class="errDiv">
+        <i class="fa-solid fa-circle-exclamation fa-3x"></i>
+        <h1>No result, try a different zip code</h1>
+    </div>
+
+    <div class="errDivCity">
+        <i class="fa-solid fa-circle-exclamation fa-3x"></i>
+        <h1>No result, try a different city</h1>
+    </div>
     
     
 

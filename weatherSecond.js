@@ -11,6 +11,7 @@ let primary = {
     day: 0, 
     decider: true,
     timeInDegrees: 0, 
+    stateOrCountry: true,
   };
   let cast = {
     sunrise: 0, 
@@ -40,6 +41,12 @@ let primary = {
   let HTML = {
     mid: document.querySelector(".mid"),
     meter: document.querySelector(".meter"),
+    changeSearch: document.querySelector(".changeSearch"),
+    changeSearchZip: document.querySelector(".changeSearchZip"),
+    changeSearchMobile: document.querySelector(".changeSearchMobile"),
+    changeSearchZipMobile: document.querySelector(".changeSearchZipMobile"),
+    searchBar: document.querySelector(".searchBar"), 
+    searchBarCity: document.querySelector(".searchBarCity"),
     iFrame: document.querySelector(".frame"),
     cityState: document.querySelector(".cityState"),     
     current: document.querySelector(".infoDiv"),
@@ -65,7 +72,9 @@ let primary = {
     containerDiv: document.querySelector(".container"),
     startContainer: document.querySelector(".startContainer"),      
     search: document.getElementById("search"),
-    searchBtn: document.getElementById("searchBtn"),     
+    searchBtn: document.getElementById("searchBtn"), 
+    searchCity: document.getElementById("searchCity"),
+    searchBtnCity: document.getElementById("searchBtnCity"),    
     city: document.getElementById("city"), 
     state: document.getElementById("state"), 
     sunrise: document.getElementById("sunrise"), 
@@ -262,6 +271,34 @@ let primary = {
       this.timeList = this.timeNow.toString().split(" ");  
     }
   }
+
+  const changeToZip = () => {
+    HTML.changeSearch.style.display = "inline";
+    HTML.changeSearchZip.style.display = "none"; 
+    HTML.searchBarCity.style.display = "none";
+    HTML.searchBar.style.display = "flex";
+  }
+  
+  const changeToCity = () => {
+    HTML.changeSearch.style.display = "none";
+    HTML.changeSearchZip.style.display = "inline"; 
+    HTML.searchBarCity.style.display = "flex";
+    HTML.searchBar.style.display = "none";
+  }
+
+  const changeToZipMobile = () => {
+    HTML.changeSearchMobile.style.display = "inline";
+    HTML.changeSearchZipMobile.style.display = "none"; 
+    HTML.searchBarCity.style.display = "none";
+    HTML.searchBar.style.display = "flex";
+  }
+  
+  const changeToCityMobile = () => {
+    HTML.changeSearchMobile.style.display = "none";
+    HTML.changeSearchZipMobile.style.display = "inline"; 
+    HTML.searchBarCity.style.display = "flex";
+    HTML.searchBar.style.display = "none";
+  }
   
   const runTime = () => {
   let todayDate = new TodaysTime();
@@ -270,8 +307,12 @@ let primary = {
   }
   
   let fillHTML = () => {
-              HTML.city.innerHTML = primary.city; 
-              HTML.state.innerHTML = primary.state;
+              HTML.city.innerHTML = primary.city;
+              if(primary.stateOrCountry === true){
+                HTML.state.innerHTML = primary.country;
+              } else {
+                HTML.state.innerHTML = primary.state;
+              }
               HTML.dewPoint.innerHTML = cast.currentWeather.dew; 
               HTML.uv.innerHTML = cast.currentWeather.uv; 
               HTML.sunrise.innerHTML = cast.newTimes[0];
@@ -530,16 +571,100 @@ let primary = {
       HTML.loading.style.display = "flex";
       HTML.containerDiv.style.display = "grid";
       HTML.startContainer.style.display = "none"; 
+      document.querySelector(".errDiv").style.display = "none";
+      document.querySelector(".errDivCity").style.display = "none";
+      primary.stateOrCountry = true; 
       getWeather.getLatLon(); 
     },
-  
-    getLatLon: function () {
-        fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + HTML.search.value + "&limit=" + primary.limit + "&appid=" + primary.apiKey)
-        .then((response) => response.json())
-        .then((data) => getWeather.fillLatLon(data)); 
+
+    clearCity: function () {
+      cast.newTimes = [];
+      cast.currentWeather = {};
+      cast.day1 = {};
+      cast.day2 = {};
+      cast.day3 = {};
+      cast.day4 = {};
+      cast.day5 = {};
+      cast.day6 = {};
+      cast.day7 = {};
+      cast.hour1 = {}; 
+      cast.hour2 = {};
+      cast.hour3 = {};
+      cast.hour4 = {};
+      cast.hour5 = {};
+      cast.hour6 = {};
+      cast.hour7 = {};
+      cast.hour8 = {};
+      cast.hour9 = {};
+      cast.hour10 = {};
+      HTML.cityState.style.display = "none";
+      HTML.iFrame.style.display = "none"; 
+      HTML.current.style.display = "none";
+      HTML.day.style.display = "none";
+      HTML.hour.style.display = "none";
+      HTML.loading.style.display = "flex";
+      HTML.containerDiv.style.display = "grid";
+      HTML.startContainer.style.display = "none"; 
+      document.querySelector(".errDiv").style.display = "none";
+      document.querySelector(".errDivCity").style.display = "none";
+      primary.stateOrCountry = false;
+      getWeather.getLatLonCity(); 
     },
   
+    getLatLonCity: function () {
+        fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + HTML.searchCity.value + "&limit=" + primary.limit + "&appid=" + primary.apiKey)
+        .then(async response => {
+          if(!response.ok) {
+            const text = await response.text();
+            throw new Error(text);
+           }
+          else {
+           return response.json();
+         }    
+        })
+        .then((data) => {
+          console.log(data)
+          getWeather.fillLatLonCity(data)
+        })
+        .catch(err => {
+          console.log('caught it!',err);
+          HTML.loading.style.display = "none";
+          document.querySelector(".errDivCity").style.display = "flex";
+       });
+    },
+
+    getLatLon: function () {
+      fetch("http://api.openweathermap.org/geo/1.0/zip?zip=" + HTML.search.value + "&appid=" + primary.apiKey)
+      .then(async response => {
+        if(!response.ok) {
+          const text = await response.text();
+          throw new Error(text);
+         }
+        else {
+         return response.json();
+       }    
+      })
+      .then((data) => {
+        getWeather.fillLatLon(data)
+      })
+      .catch(err => {
+        console.log('caught it!',err);
+        HTML.loading.style.display = "none";
+        document.querySelector(".errDiv").style.display = "flex";
+     });
+  },
+  
     fillLatLon: function (data){
+      primary.lat = data.lat;
+      primary.lon = data.lon;
+      primary.city = data.name; 
+      primary.state = data.state; 
+      primary.country = data.country; 
+      console.log(primary.lat);   
+      getWeather.getForecast();
+    },
+
+    fillLatLonCity: function (data){
       primary.lat = data[0].lat;
       primary.lon = data[0].lon;
       primary.city = data[0].name; 
@@ -548,7 +673,7 @@ let primary = {
       console.log(primary.lat);   
       getWeather.getForecast();
     },
-  
+
     getForecast: function () {
       fetch("https://api.openweathermap.org/data/2.5/onecall?units=imperial&exclude=minutely&lat=" + primary.lat + "&lon=" + primary.lon + "&appid=" + primary.apiKey)
       .then((response) => response.json())
@@ -664,7 +789,7 @@ let primary = {
       HTML.dailyForecastTextHeader.style.color = "white";
     }
     if(weather.type === "Snow"){
-      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1542601098-8fc114e148e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
+      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1547754980-3df97fed72a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
       divD.style.color = "black";
       HTML.dailyForecastTextHeader.style.color = "black";
     }
@@ -672,6 +797,16 @@ let primary = {
       divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1561484930-974554019ade?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
       divD.style.color = "black";
       HTML.dailyForecastTextHeader.style.color = "black";
+    }
+    if(weather.type === "Fog"){
+      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1510596713412-56030de252c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80')";
+      divD.style.color = "white";
+      HTML.dailyForecastTextHeader.style.color = "white";
+    }
+    if(weather.type === "Mist"){
+      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1462040700793-fcd2dbc0edf0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
+      divD.style.color = "white";
+      HTML.dailyForecastTextHeader.style.color = "white";
     }
   }
   
@@ -707,7 +842,7 @@ let primary = {
       HTML.mid.style.color = "white"; 
     }
     if(weather.type === "Snow"){
-      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1542601098-8fc114e148e2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
+      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1547754980-3df97fed72a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
       divD.style.color = "black";
      HTML.currentForecastTextHeader.style.color = "black";
      HTML.mid.style.color = "black"; 
@@ -718,6 +853,18 @@ let primary = {
      HTML.currentForecastTextHeader.style.color = "black";
      HTML.mid.style.color = "black"; 
     } 
+    if(weather.type === "Fog"){
+      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1510596713412-56030de252c8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1587&q=80')";
+      divD.style.color = "white";
+      HTML.dailyForecastTextHeader.style.color = "white";
+      HTML.mid.style.color = "white";
+    }
+    if(weather.type === "Mist"){
+      divD.style.backgroundImage = "url('https://images.unsplash.com/photo-1462040700793-fcd2dbc0edf0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')";
+      divD.style.color = "white";
+      HTML.dailyForecastTextHeader.style.color = "white";
+      HTML.mid.style.color = "white";
+    }
   }
   
   const functions = { //handles sunrise meter
@@ -727,20 +874,26 @@ let primary = {
         setTimeout(functions.getSunDegrees, 500);
     }, 
     getSunDegrees: function () { //170 is difference between visible degrees 45 and 215 on meter.
-      const current = new Date(); //Fri Oct 21 2022 11:24:13 GMT-0400 (Eastern Daylight Time)
+      const current = new Date(); //Fri Oct 21 2022 00:24:13 GMT-0400 (Eastern Daylight Time)
+      console.log(current); 
       const up = new Time(cast.sunrise); //6:00
       const dwn = new Time(cast.sunset); //20:00
-      const one = up.timeList[4].toString().split(":"); //[6, 00]
-      const two = dwn.timeList[4].toString().split(":"); //[20, 00]
-      const cur = current.toString().split(" "); //[Fri, Oct, 21, 2022, 11:24:13 GMT-0400 (Eastern Daylight Time)]
-      const now = cur[4].toString().split(":"); //[11, 24, 13]
-      const diff = Number(two[0]) - Number(one[0]); //20 - 6 = 14, hrs between sunrise and sunset.
-      const hr = Math.floor(170 / diff); //12, 170/14 to get even segments between visible degrees.   
-      const upDif = Number(now[0]) - Number(one[0]); //11 - 6 = 5, hrs between sunrise and current time.
+      const one = up.timeList[4].toString().split(":"); //[2, 00]
+      const two = dwn.timeList[4].toString().split(":"); //[11, 00]
+      console.log(one); 
+      console.log(two);
+      const cur = current.toString().split(" "); //[Fri, Oct, 21, 2022, 00:24:13 GMT-0400 (Eastern Daylight Time)]
+      const now = cur[4].toString().split(":"); //[00, 24, 13]
+      const diff = Number(two[0]) - Number(one[0]); //11 - 2 = 9, hrs between sunrise and sunset.
+      const hr = Math.floor(170 / diff); //18, 170/9 to get even segments between visible degrees.   
+      const upDif = Number(now[0]) - Number(one[0]); //00 - 2 = -2, hrs between sunrise and current time.
       const multi = Math.floor(hr * upDif); //60, time converted to degrees. 
       primary.timeInDegrees = multi + 45;
-      if(primary.timeInDegrees >= 215){
+      if(primary.timeInDegrees >= 215 || primary.timeInDegrees <= 0){
         primary.timeInDegrees = 225;    
+      }
+      if(primary.timeInDegrees > 0 && primary.timeInDegrees <= 45){
+        primary.timeInDegrees = 45;    
       }
       functions.getInput(); 
     },
@@ -760,6 +913,13 @@ let primary = {
     if (event.key === "Enter") {
       event.preventDefault();
       getWeather.clear(); 
+    }
+  });
+  HTML.searchBtnCity.addEventListener("click", getWeather.clearCity);
+  HTML.searchCity .addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      getWeather.clearCity(); 
     }
   });
   HTML.threeLines.addEventListener("click", changeSizeBig); 

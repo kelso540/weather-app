@@ -62,6 +62,12 @@ a{
         position: relative;
         z-index: 1;
     }
+    .openWeatherLink{
+        color: var(--spanishGreen);
+    }
+    .openWeatherLink:hover{
+        color: var(--black);
+    }
     .startPicB{
         color: rgb(105, 108, 97);
         padding: 20px;
@@ -119,10 +125,18 @@ nav{
     background-color: var(--black);
 }
     .navHeadLink{
-        cursor: pointer;
+        cursor: pointer;  
+        color: var(--white);
     }
     .navHeadLink:hover{
         color: var(--blue);
+    }
+    .navLinkB{
+        padding: 5px;
+        color: var(--lightGray)
+    }
+    .navLinkB:hover{
+        color: var(--white)
     }
     .navLeft{
         font-size: 27px;
@@ -185,6 +199,61 @@ nav{
             position: relative; 
             cursor: pointer;
         }
+
+.searchBarCity{
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--spanishGreen);
+    border: 1px solid; 
+    padding-right: 2px;
+    border-radius: 10px;
+    width: 50%;
+    margin-right: 5px;
+}
+    .searchCity{
+        flex: 0 1 85%;
+    }
+    #searchCity{
+        height: 20px;
+        width: 100%;
+        font-size: 17px;
+        padding-left: 10px;
+        border: none;
+        background-color: var(--spanishGreen);
+        color: var(--black);
+    }
+    #searchCity:focus{
+        outline: none;
+    }
+    .searchBtnCity{
+        height: 30px; 
+        width: 30px;
+        padding: 5px 10px 5px 0; 
+        position: relative; 
+        cursor: pointer;
+    }
+    .changeSearch{
+        display: inline;
+        padding: 5px;
+        color: var(--lightGray);
+        cursor: pointer;
+    }
+    .changeSearch:hover{
+        color: var(--white);
+    }
+    .changeSearchZip{
+        display: none;
+        padding: 5px;
+        color: var(--lightGray);
+        cursor: pointer;
+    }
+    .changeSearchZip:hover{
+        color: var(--white);
+    }
+    .changeSearchDiv{
+        display: inline;
+    }
 .threeLinesDropDown{
     display: none;
 }
@@ -597,10 +666,7 @@ nav{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-top: 5px solid lightgray;
-    border-left: 5px solid lightgray;
-    border-right: 5px solid lightgray;
-    border-bottom: 5px solid lightgray;
+    border: 5px solid lightgray;
     height: 14rem;
     width: 14rem;
     rotate: 45deg;
@@ -610,6 +676,23 @@ nav{
     display: flex;
     width: 116%;
     rotate: -45deg;
+}
+.errDiv{
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}
+.errDivCity{
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    text-align: center;
+}
+.fa-circle-exclamation{
+    color: var(--color);
 }
 .fa-sun{
     color: rgb(155, 100, 0); 
@@ -695,7 +778,7 @@ nav{
     
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 920px) {
     body{
         background-size: 480%;
     }
@@ -762,6 +845,29 @@ nav{
         .searchBar{
             width: 100%;
         }
+        .searchBarCity{
+            width: 100%;
+        }
+        .homeLink{
+            color: var(--white);
+            position: relative;
+            bottom: 15px;
+        }
+        .changeSearchDiv{
+            display: none;
+        }
+        .changeSearchMobile{
+            display: inline;
+            font-size: x-large;
+            color: var(--white);
+            padding-bottom: 20px;
+        }
+        .changeSearchZipMobile{
+            display: none;
+            font-size: x-large;
+            color: var(--white);
+            padding-bottom: 20px;
+        }
     .threeLinesDropDown{
         display: flex;
         align-items: center;
@@ -786,7 +892,7 @@ nav{
         z-index: 4;
     }
     .grow{
-        height: 200px;
+        height: 300px;
         opacity: 100%;
     }
     .border-radius{
@@ -800,13 +906,6 @@ nav{
         color: var(--white);
         font-size: x-large;
         margin-top: 30px;
-    }
-    .navLinkB{
-        padding: 5px;
-        color: var(--lightGray)
-    }
-    .navLinkB:hover{
-        color: var(--black)
     }
 .cityState{
         font-size: 30px;
