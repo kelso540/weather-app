@@ -634,7 +634,7 @@ let primary = {
     },
 
     getLatLon: function () {
-      fetch("http://api.openweathermap.org/geo/1.0/zip?zip=" + HTML.search.value + "&appid=" + primary.apiKey)
+      fetch("https://api.openweathermap.org/geo/1.0/zip?zip=" + HTML.search.value + "&appid=" + primary.apiKey)
       .then(async response => {
         if(!response.ok) {
           const text = await response.text();
