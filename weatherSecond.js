@@ -898,6 +898,7 @@ let primary = {
       functions.getInput(); 
     },
     getInput: function () {
+      console.log("degrees " + primary.timeInDegrees)
       root = document.documentElement;
       // root.style.setProperty('--deg', "45" + "deg");
       root.style.setProperty('--deg', primary.timeInDegrees + "deg");
