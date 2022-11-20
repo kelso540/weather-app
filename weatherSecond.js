@@ -874,20 +874,20 @@ let primary = {
         setTimeout(functions.getSunDegrees, 500);
     }, 
     getSunDegrees: function () { //170 is difference between visible degrees 45 and 215 on meter.
-      const current = new Date(); //Fri Oct 21 2022 00:24:13 GMT-0400 (Eastern Daylight Time)
+      const current = new Date(); //Fri Oct 21 2022 21:00:00 GMT-0400 (Eastern Daylight Time)
       console.log(current); 
       const up = new Time(cast.sunrise); //6:00
-      const dwn = new Time(cast.sunset); //20:00
-      const one = up.timeList[4].toString().split(":"); //[2, 00]
-      const two = dwn.timeList[4].toString().split(":"); //[11, 00]
+      const dwn = new Time(cast.sunset); //16:00
+      const one = up.timeList[4].toString().split(":"); //[6, 00]
+      const two = dwn.timeList[4].toString().split(":"); //[16, 00]
       console.log(one); 
       console.log(two);
-      const cur = current.toString().split(" "); //[Fri, Oct, 21, 2022, 00:24:13 GMT-0400 (Eastern Daylight Time)]
-      const now = cur[4].toString().split(":"); //[00, 24, 13]
-      const diff = Number(two[0]) - Number(one[0]); //11 - 2 = 9, hrs between sunrise and sunset.
-      const hr = Math.floor(170 / diff); //18, 170/9 to get even segments between visible degrees.   
-      const upDif = Number(now[0]) - Number(one[0]); //00 - 2 = -2, hrs between sunrise and current time.
-      const multi = Math.floor(hr * upDif); //60, time converted to degrees. 
+      const cur = current.toString().split(" "); //[Fri, Oct, 21, 2022, 21:00:00 GMT-0400 (Eastern Daylight Time)]
+      const now = cur[4].toString().split(":"); //[21, 00, 00]
+      const diff = Number(two[0]) - Number(one[0]); //16 - 6 = 10, hrs between sunrise and sunset.
+      const hr = Math.floor(170 / diff); //17, 170/10 to get even segments between visible degrees.   
+      const upDif = Number(now[0]) - Number(one[0]); //21 - 6 = 15, hrs between sunrise and current time.
+      const multi = Math.floor(hr * upDif); //255, time converted to degrees. 
       primary.timeInDegrees = multi + 45;
       if(primary.timeInDegrees >= 215 || primary.timeInDegrees <= 0){
         primary.timeInDegrees = 225;    
@@ -899,7 +899,7 @@ let primary = {
     },
     getInput: function () {
       root = document.documentElement;
-      root.style.setProperty('--deg', "45" + "deg");
+      // root.style.setProperty('--deg', "45" + "deg");
       root.style.setProperty('--deg', primary.timeInDegrees + "deg");
       HTML.meter.classList.add("animate");  
   },
