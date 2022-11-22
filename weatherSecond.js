@@ -1,5 +1,5 @@
 let primary = {
-    apiKey: "0ae40ad0cb46cfc0c77a6b0eecda3979",
+    apiKey: config.apiKey,
     iconId: "https://openweathermap.org/img/wn/10d@2x.png",
     limit: 1, 
     lat: 0, 
