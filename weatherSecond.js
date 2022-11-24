@@ -1,5 +1,5 @@
 let primary = {
-    apiKey: config.apiKey,
+    apiKey: '',
     iconId: "https://openweathermap.org/img/wn/10d@2x.png",
     limit: 1, 
     lat: 0, 
@@ -12,6 +12,8 @@ let primary = {
     decider: true,
     timeInDegrees: 0, 
     stateOrCountry: true,
+    cityName: '',
+    zip: '',
   };
   let cast = {
     sunrise: 0, 
@@ -291,6 +293,11 @@ let primary = {
     HTML.changeSearchZipMobile.style.display = "none"; 
     HTML.searchBarCity.style.display = "none";
     HTML.searchBar.style.display = "flex";
+    primary.decider = !primary.decider;
+    HTML.dropMenu.classList.toggle("grow");
+    HTML.nav.classList.toggle("border-radius");
+    HTML.threeLines.classList.remove("fa-x");
+    HTML.threeLines.classList.add("fa-bars");
   }
   
   const changeToCityMobile = () => {
@@ -298,6 +305,11 @@ let primary = {
     HTML.changeSearchZipMobile.style.display = "inline"; 
     HTML.searchBarCity.style.display = "flex";
     HTML.searchBar.style.display = "none";
+    primary.decider = !primary.decider;
+    HTML.dropMenu.classList.toggle("grow");
+    HTML.nav.classList.toggle("border-radius");
+    HTML.threeLines.classList.remove("fa-x");
+    HTML.threeLines.classList.add("fa-bars");
   }
   
   const runTime = () => {
@@ -331,7 +343,7 @@ let primary = {
               HTML.midTemp.innerHTML = Math.floor(cast.currentWeather.rain * 100);
               HTML.lowTemp.innerHTML = cast.currentWeather.low;
               changeCurrentWeatherBackground(cast.currentWeather, HTML.current); 
-          
+
               let hourT1 = new Time(cast.day1.time); 
               HTML.dayOfWeek1.innerHTML = hourT1.timeList[0];
               HTML.temp1.innerHTML = cast.day1.temp;
@@ -574,6 +586,7 @@ let primary = {
       document.querySelector(".errDiv").style.display = "none";
       document.querySelector(".errDivCity").style.display = "none";
       primary.stateOrCountry = true; 
+      primary.zip = HTML.search.value;
       getWeather.getLatLon(); 
     },
 
@@ -608,11 +621,12 @@ let primary = {
       document.querySelector(".errDiv").style.display = "none";
       document.querySelector(".errDivCity").style.display = "none";
       primary.stateOrCountry = false;
+      primary.cityName = HTML.searchCity.value;
       getWeather.getLatLonCity(); 
     },
-  
+
     getLatLonCity: function () {
-        fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + HTML.searchCity.value + "&limit=" + primary.limit + "&appid=" + primary.apiKey)
+      fetch(`/.netlify/functions/getCity?city=${primary.cityName}`)
         .then(async response => {
           if(!response.ok) {
             const text = await response.text();
@@ -634,7 +648,7 @@ let primary = {
     },
 
     getLatLon: function () {
-      fetch("https://api.openweathermap.org/geo/1.0/zip?zip=" + HTML.search.value + "&appid=" + primary.apiKey)
+      fetch(`/.netlify/functions/getZip?zip=${primary.zip}`)
       .then(async response => {
         if(!response.ok) {
           const text = await response.text();
@@ -675,7 +689,7 @@ let primary = {
     },
 
     getForecast: function () {
-      fetch("https://api.openweathermap.org/data/2.5/onecall?units=imperial&exclude=minutely&lat=" + primary.lat + "&lon=" + primary.lon + "&appid=" + primary.apiKey)
+      fetch(`/.netlify/functions/handler?lat=${primary.lat}&lon=${primary.lon}`)
       .then((response) => response.json())
       .then((data) => getWeather.fillWeather(data)); 
     },
@@ -926,4 +940,4 @@ let primary = {
   HTML.threeLines.addEventListener("click", changeSizeBig); 
   HTML.arrowLeft.addEventListener("click", changeDayDwn);
   HTML.arrowRight.addEventListener("click", changeDayUp);
-  runTime(); 
+  runTime();  
